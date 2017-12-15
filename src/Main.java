@@ -1,8 +1,10 @@
+import javax.management.BadAttributeValueExpException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,12 +20,35 @@ public class Main {
                 ferry.addPont(Integer.parseInt(init[i]));
             }
 
+            //Création liste de véhicules
+
+            List<Vehicule> vehicules = null;
+
+            for (int i = 1; i < input.size(); i++){
+                String[] line = input.get(i).split(" ");
+                if (line[0].equals("V")){
+                    vehicules.add(new Voiture(Integer.parseInt(line[1])));
+                } else if (line[0].equals("B")){
+                    vehicules.add(new Bus(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
+                } else {
+                    throw new BadInputException();
+                }
+            }
+
             //Embarquement
+
+            for (int i = 1; i < vehicules.size(); i++){
+                ferry.board(vehicules.get(i));
+            }
 
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Impossible de lire le fichier d'entrée");
+        } catch (FerryFullException e) {
+            System.out.println("Le ferry est plein !");
+        } catch (BadInputException e) {
+            System.out.println("Mauvaise entrée de véhicule");
         }
     }
 

@@ -17,7 +17,7 @@ public class Ferry {
         this.ponts.add(newPont);
     }
 
-    public void board(Vehicule vec) throws Exception{
+    public void board(Vehicule vec) throws FerryFullException{
         vec.setPrixBillet(75 * vec.getTaille() + 15 * vec.getNombrePassagers());
         boolean stored = false;
         int i = 0;
@@ -30,7 +30,7 @@ public class Ferry {
             i++;
         }
         if (!stored){
-            throw new Exception();
+            throw new FerryFullException();
         }
 
     }
