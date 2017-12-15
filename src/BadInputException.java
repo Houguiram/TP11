@@ -1,3 +1,4 @@
-public class BadInputException extends Exception{
-    public BadInputException(){}
+public class BadInputException extends Exception {
+    public BadInputException() {
+    }
 }
